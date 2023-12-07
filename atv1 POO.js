@@ -21,6 +21,35 @@ class Conta {
     this.#ContaCorrente = ContaCorrente;
   }
 
+  depositaNaConta() {
+    return new Promise((resolve, reject) => {
+      readline.question("Qual valor voce deseja depositar? ", (valor) => {
+        if (isNaN(valor) || valor < 0.01) {
+          reject(new Error("Valor invalido. digite apenas numeros"));
+        } else {
+          this.#Saldo += Number(valor);
+          resolve();
+        }
+      });
+    });
+  }
+
+  /* caso foss static seria assim
+  class conta {
+    static #ContaPoupanca;
+    static #ContaCorrente;
+    static #Saldo;
+    static #nomeCliente;
+
+    constructor(nomeCliente, Saldo, contaPoupança, ContaCorrente) {
+      this.#nomeCliente = nomeCliente;
+      this.#Saldo = Saldo;
+      this.#ContaPoupanca = contaPoupança;
+      this.#ContaCorrente = ContaCorrente;
+    }
+  }
+  */
+
   get nomeCliente() {
     return this.#nomeCliente;
   }
@@ -36,7 +65,8 @@ class Conta {
     return this.#Saldo;
   }
   set Saldo(Saldo) {
-    if (isNaN(Saldo)) {1
+    if (isNaN(Saldo)) {
+      1;
       throw new Error("Saldo invalido. digite apenas numeros");
     }
     this.#Saldo = Saldo;
@@ -156,3 +186,5 @@ readline.question("Qual é o seu nome? ", (nomeCliente) => {
     );
   });
 });
+
+MetodoEstatico.depositaNaConta();
